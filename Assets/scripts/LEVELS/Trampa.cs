@@ -13,7 +13,7 @@ public class Trampa : MonoBehaviour
         if (collision.tag == "player")
         {
             obj.transform.position = destino.transform.position;
-            
+            gameObject.SetActive(false);
             
         }
     }
