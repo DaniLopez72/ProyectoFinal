@@ -35,16 +35,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(0, force));
 
         }
-        
-
-        
-
-
-
-
-
-
-        suelo = false;
+          suelo = false;
         for (int i = 0; i < originPoints.Count; i++)
         {
             Debug.DrawRay(transform.position + originPoints[i], Vector3.down * lenght, Color.red);
@@ -55,7 +46,8 @@ public class PlayerController : MonoBehaviour
                 suelo = true;
                 if (hit.collider.tag == "Trampolin")
                 {
-                    rb.AddForce(new Vector2(0, 30));
+                    rb.velocity = new Vector2(0, 0);
+                    rb.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
                 }
             }
         }
