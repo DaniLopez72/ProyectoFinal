@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Lvl2Fase3 : MonoBehaviour
+public class Lvl2Fase5 : MonoBehaviour
 {
     public GameObject obj, destino;
     public float speed=2.5f;

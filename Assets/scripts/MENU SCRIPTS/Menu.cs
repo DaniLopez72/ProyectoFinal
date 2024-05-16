@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 
     public List<GameObject> points;
     public GameObject menu;
+    public GameObject panel;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,11 @@ public class Menu : MonoBehaviour
     }
     public void Niveles()
     {
-        SceneManager.LoadScene(2);
+        panel.SetActive(true);
+    }
+
+    public void SetNivel(int nivel)
+    {
+        SceneManager.LoadScene(nivel);
     }
 }

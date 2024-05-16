@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public bool suelo;
     public float lenght = 1;
     public LayerMask mask;
-    public GameObject inicio;
 
     public List<Vector3> originPoints;
     // Start is called before the first frame update
@@ -29,10 +28,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
-        transform.position = transform.position + new Vector3(horizontal * Time.deltaTime * speed, 0);
+        //transform.position = transform.position + new Vector3(horizontal * Time.deltaTime * speed, 0);
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         if (Input.GetButtonDown("Jump") && suelo)
         {
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+            {
+                rb.gravityScale *= -1;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
             rb.AddForce(new Vector2(0, force));
+            }
 
         }
           suelo = false;
@@ -47,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 if (hit.collider.tag == "Trampolin")
                 {
                     rb.velocity = new Vector2(0, 0);
-                    rb.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(0, 30), ForceMode2D.Impulse);
                 }
             }
         }
