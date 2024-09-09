@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Trampa_mover : MonoBehaviour
+public class Mover1 : MonoBehaviour
 {
-    public GameObject obj, destino1, destino2;
+    public GameObject obj, destino1;
 
     private void OnTriggerEnter2D(Collider2D collision)
-    { 
+    {
         if (collision.tag == "player")
         {
-            
-            StartCoroutine(Lerp(obj.transform.position, destino1.transform.position,0.1f));
-            StartCoroutine(Lerp(obj.transform.position, destino2.transform.position,0.1f));
-            gameObject.SetActive(false);
-            
+
+            StartCoroutine(Lerp(obj.transform.position, destino1.transform.position, 5f));
+        }
+    }
+
+    private void Update()
+    {
+        if (obj.transform.position == destino1.transform.position)
+        {
+            Destroy(obj.gameObject);
+            Destroy(gameObject);
         }
     }
 

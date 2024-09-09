@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
 
     public GameObject player;
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     public float force = 50;
     public float speed = 60;
     public bool suelo;
@@ -18,10 +15,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask mask;
 
     public List<Vector3> originPoints;
+
+    public Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         //transform.position = transform.position + new Vector3(horizontal * Time.deltaTime * speed, 0);
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        anim.SetFloat("speed", horizontal);
+        anim.SetBool("isGrounded", suelo);
+        if (Input.GetKey(KeyCode.Escape)) { SceneManager.LoadScene(0); }
         if (Input.GetButtonDown("Jump") && suelo)
         {
             if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour
             {
             rb.AddForce(new Vector2(0, force));
             }
-
+            
         }
           suelo = false;
         for (int i = 0; i < originPoints.Count; i++)
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
                 if (hit.collider.tag == "Trampolin")
                 {
                     rb.velocity = new Vector2(0, 0);
-                    rb.AddForce(new Vector2(0, 30), ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(0, 15), ForceMode2D.Impulse);
                 }
             }
         }
@@ -69,6 +72,15 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "Teleport")
         {
             rb.velocity = new Vector2(0, 0);
+        }
+
+        if (collision.tag=="puertaFinal")
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (collision.tag == "Nivel")
+        {
+            SceneManager.LoadScene((int)SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - muerte
   - Teleport
   - player
+  - puertaFinal
+  - Nivel
   layers:
   - Default
   - TransparentFX

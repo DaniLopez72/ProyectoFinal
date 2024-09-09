@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Trampa_timer : MonoBehaviour
 {
-    public GameObject obj;
+    
+    public UnityEvent objActive;
+    public UnityEvent objInactive;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        obj.SetActive(true);
+        objActive?.Invoke();
         Invoke("Clear", 2);
     }
 
     void Clear()
     {
-        gameObject.SetActive(false);
-        obj.SetActive(false);
+        objInactive?.Invoke();
     }
 }
